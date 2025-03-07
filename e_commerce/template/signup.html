@@ -104,12 +104,14 @@
     {% for message in messages %}
     <script> alert('{{ message }}')</script>
     {% endfor %}
-    <form action="login" method="post">
+    <form action="signup" method="post">
         {% csrf_token %}
         <div class="imgcontainer">
-            <h2>Login Form</h2>
+            <h2>SIGN UP</h2>
         </div>
         <div class="container">
+            <label for="name"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="name" required>
 
             <label for="email"><b>Email</b></label>
             <input type="text" placeholder="Enter Email" name="email" required>
@@ -117,15 +119,15 @@
             <label for="password"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="password" required>
 
-            <button type="submit">Login</button>
+            <button type="submit">Sgin up</button>
             <label>
                 <input type="checkbox" checked="checked" name="remember"> Remember me
             </label>
         </div>
 
         <div class="container" style="background-color:#f1f1f1">
-            <a href="/"><button type="button" class="cancelbtn">Cancel</button></a>
-            <span class="psw">no account <a href="signup">signup</a></span>
+        <a href="/"><button type="button" class="cancelbtn"> Cancel</button></a>
+            <span class="psw">Have an acount <a href="auth/login">login in?</a></span>
         </div>
     </form>
 </body>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        input, button { margin: 10px; padding: 10px; font-size: 16px; }
+        button { background-color: #0284c7; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #0369a1; }
+    </style>
+</head>
+<body>
+    <h2>Make a Payment</h2>
+    <input type="email" id="email" placeholder="Enter your email" required><br>
+    <input type="number" id="amount" placeholder="Enter amount" required><br>
+    <button onclick="initiatePayment()">Pay Now</button>
+
+    <script>
+        async function initiatePayment() {
+            const email = document.getElementById("email").value;
+            const amount = document.getElementById("amount").value;
+
+            if (!email || !amount) {
+                alert("Please enter email and amount.");
+                return;
+            }
+
+            const response = await fetch("http://127.0.0.1:8000/payments/chapa-checkout/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: email, amount: amount })
+            });
+
+            const data = await response.json();
+            if (data.checkout_url) {
+                window.location.href = data.checkout_url; // Redirect to Chapa payment page
+            } else {
+                alert("Payment initiation failed. Try again.");
+            }
+        }
+    </script>
+</body>
+</html>
